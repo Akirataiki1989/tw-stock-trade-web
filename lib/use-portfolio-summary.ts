@@ -28,6 +28,7 @@ export function usePortfolioSummary(token: string | null) {
     if (!token) {
       return;
     }
+    const authToken: string = token;
 
     let cancelled = false;
 
@@ -36,10 +37,10 @@ export function usePortfolioSummary(token: string | null) {
       setError(null);
       try {
         const [portfolio, performance, holdings, stats] = await Promise.all([
-          apiGet<Portfolio>("/portfolio", token),
-          apiGet<PerformanceEntry[]>("/portfolio/performance", token),
-          apiGet<Holding[]>("/portfolio/holdings", token),
-          apiGet<PortfolioStats>("/portfolio/stats", token),
+          apiGet<Portfolio>("/portfolio", authToken),
+          apiGet<PerformanceEntry[]>("/portfolio/performance", authToken),
+          apiGet<Holding[]>("/portfolio/holdings", authToken),
+          apiGet<PortfolioStats>("/portfolio/stats", authToken),
         ]);
         if (cancelled) return;
 
